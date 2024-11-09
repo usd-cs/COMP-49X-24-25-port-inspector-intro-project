@@ -1,0 +1,35 @@
+name: Django CI
+
+on:
+  push:
+    branches:
+      - main  # or 'master', depending on your default branch
+  pull_request:
+    branches:
+      - main  # or 'master', depending on your default branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Choose an appropriate OS, this uses the latest Ubuntu
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # Specify your Python version here
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # Ensure requirements.txt exists
+
+    - name: Set up Database (SQLite, Postgres, etc.)
+      run: |
+        python manage.py migrate  # Applies migrations to the database
+
+    - name: Run tests
+      run: |
+        python manage.py test  # Runs Django tests
