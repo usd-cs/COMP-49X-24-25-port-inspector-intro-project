@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+<h1>Make a post!</h1>
+
+<form class="form-style" action="{% url 'new_post' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <br/>
+    <button class="button"">Post!</button> 
+</form>
