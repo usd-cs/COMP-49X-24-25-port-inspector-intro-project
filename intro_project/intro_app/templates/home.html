@@ -7,7 +7,7 @@
 
 {% for post in posts %}
 <div class="post">
-    <p>{{ post.body }}</p>
-    <p class="timestamp">{{ post.create_date }}</p>
+    <p>{{ post.contents }}</p>
+    <p class="timestamp">{{ post.created_at }}</p>
 </div>
 {% endfor %}

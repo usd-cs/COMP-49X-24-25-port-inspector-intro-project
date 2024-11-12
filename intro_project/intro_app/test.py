@@ -79,5 +79,3 @@ class UserPostCommentTest(TestCase):
         # Ensure that user1 has the correct comments related
         self.assertIn(self.comment1, self.user1.comments.all())  # Ensure comment1 is related to user1
         self.assertIn(self.comment2, self.user2.comments.all())  # Ensure comment2 is related to user2
-
-# Create your tests here.

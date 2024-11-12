@@ -11,7 +11,7 @@ def members(request):
 
 def view_posts(request):
     # get posts from database, and send them to render method
-    posts = Post.objects.all().order_by("-create_date")
+    posts = Post.objects.all().order_by("-created_at")
     return render(request, 'home.html', {'posts': posts})
 
 # This tag might be useful to limit creating a post for only users who are logged in
