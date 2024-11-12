@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
+
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from . import forms
@@ -17,7 +19,7 @@ def view_posts(request):
     return render(request, 'home.html', {'posts': posts})
 
 # This tag might be useful to limit creating a post for only users who are logged in
-#@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def new_post(request):
     # if the user is attempting to POST
     if request.method == "POST":
