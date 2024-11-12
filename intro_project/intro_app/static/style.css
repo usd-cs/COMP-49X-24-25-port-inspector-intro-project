@@ -18,3 +18,8 @@
     font-size: 12px;
     font-style: italic;
 }
+
+.post .author-tag {
+    font-size: 15px;
+    color: #707277
+}
