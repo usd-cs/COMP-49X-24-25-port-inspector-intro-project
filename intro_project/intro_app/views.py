@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -16,7 +16,8 @@ def members(request):
 def view_posts(request):
     # get posts from database, and send them to render method
     posts = Post.objects.all().order_by("-created_at")
-    return render(request, 'intro_app/homeNotSignedIn.html', {'posts': posts})
+    comment_form = forms.CommentForm() #initialize the comment form
+    return render(request, 'intro_app/home.html', {'posts': posts, 'form' : comment_form})
 
 # This tag might be useful to limit creating a post for only users who are logged in
 @login_required(login_url="/login/")
@@ -28,8 +29,6 @@ def new_post(request):
             # if body is valid, save it
             newpost = form.save(commit=False)
             #save the author based on login of the request
-            print("TEST")
-            print(type(request.user))
             newpost.user = request.user
             newpost.save()
             #redirect the user back to homepage after post
@@ -38,7 +37,23 @@ def new_post(request):
     else: 
         form = forms.CreatePost()
     
-    return render(request, 'createpost.html', { 'form' : form }) #passes in the form object we create above to our template, for rendering
+    return render(request, 'intro_app/createpost.html', { 'form' : form }) #passes in the form object we create above to our template, for rendering
+
+@login_required(login_url="/login/")
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, post_id=post_id)
+    if request.method == "POST":
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return redirect("/")
+    else:
+        form = forms.CommentForm()
+
+    return render(request, 'intro_app/home.html', {'posts': posts, 'form' : form})
 
 
 def login_view(request):
@@ -53,7 +68,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, 'login.html', { 'form' : form })
+    return render(request, 'intro_app/login.html', { 'form' : form })
 
 #log the user out and send them back to the homepage
 def logout_view(request):
