@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home - Not Signed In</title>
+    {% if not request.user.is_authenticated %}
+        <title>Home - Not Signed In</title>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <title>Home</title>
+    {% endif %}
     <style>
         /* General styles */
         body {
@@ -171,8 +176,20 @@
 {% comment %} Simple Javascript to set visibility on our comment 
 form only when user clicks button {% endcomment %}
 <script>
-    function showCommentForm(postId) {
-      const form = document.getElementById(`comment-form-${postId}`);
-      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    function showCommentForm(post_id) {
+        const forms = document.querySelectorAll("[id^='comment-form-']");
+        forms.forEach(form => {
+            console.log(form.id);
+            // Toggle visibility for the selected form
+            if (form.id === 'comment-form-' + post_id) {
+                console.log("toggle" + post_id);
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
+            // Hide other comment forms
+            else {
+                form.style.display = 'none';
+            }
+        });
+
     }
 </script>

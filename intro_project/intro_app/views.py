@@ -17,7 +17,7 @@ def view_posts(request):
     # get posts from database, and send them to render method
     posts = Post.objects.all().order_by("-created_at")
     comment_form = forms.CommentForm() #initialize the comment form
-    return render(request, 'intro_app/homeNotSignedIn.html', {'posts': posts, 'form' : comment_form})
+    return render(request, 'intro_app/home.html', {'posts': posts, 'form' : comment_form})
 
 # This tag might be useful to limit creating a post for only users who are logged in
 @login_required(login_url="/login/")
@@ -37,7 +37,7 @@ def new_post(request):
     else: 
         form = forms.CreatePost()
     
-    return render(request, 'createpost.html', { 'form' : form }) #passes in the form object we create above to our template, for rendering
+    return render(request, 'intro_app/createpost.html', { 'form' : form }) #passes in the form object we create above to our template, for rendering
 
 @login_required(login_url="/login/")
 def add_comment(request, post_id):
@@ -53,7 +53,7 @@ def add_comment(request, post_id):
     else:
         form = forms.CommentForm()
 
-    return render(request, 'intro_app/homeNotSignedIn.html', {'posts': posts, 'form' : form})
+    return render(request, 'intro_app/home.html', {'posts': posts, 'form' : form})
 
 
 def login_view(request):
@@ -68,7 +68,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, 'login.html', { 'form' : form })
+    return render(request, 'intro_app/login.html', { 'form' : form })
 
 #log the user out and send them back to the homepage
 def logout_view(request):
