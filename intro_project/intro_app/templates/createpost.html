@@ -6,7 +6,7 @@
 
 <form class="form-style" action="{% url 'new_post' %}" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.contents }}
     <br/>
     <button class="button"">Post!</button> 
 </form>

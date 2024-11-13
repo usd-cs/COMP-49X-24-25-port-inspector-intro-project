@@ -91,6 +91,20 @@
             color: #666;
             margin-top: 4px;
         }
+        .add_comment {
+            display: inline-block;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .comment-form {
+            width: 100%;
+        }
+        .comment-form
+        form input,
+        form textarea {
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +112,7 @@
         <div class="navbar">
             <a href="/" class="home-icon">🏠</a>
             <a href="/new_post/" class="home-icon">📭</a>
+
             {% if not request.user.is_authenticated %}
             <a href="/login/" class="sign-in">Sign in</a>
             {% endif %}
@@ -134,9 +149,30 @@
                 </div>
             </div>
             {% endfor %}
+
+            <!-- Button to add a comment -->
+            <a class="add_comment" href="javascript:void(0);" onclick="showCommentForm('{{ post.post_id }}')">Add Comment</a>
+            
+            <!-- Comment form hidden by default -->
+            <div class="comment-form" id="comment-form-{{ post.post_id }}" style="display: none;">
+                <form method="POST" action="{% url 'add_comment' post.post_id %}">
+                    {% csrf_token %}
+                    {{ form.contents }}
+                    <br/>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </div>
         {% endfor %}
     </div>
 </body>
 </html>
 
+{% comment %} Simple Javascript to set visibility on our comment 
+form only when user clicks button {% endcomment %}
+<script>
+    function showCommentForm(postId) {
+      const form = document.getElementById(`comment-form-${postId}`);
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+</script>

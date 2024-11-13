@@ -3,7 +3,7 @@
 
 <form class="form-with-validation" action="{% url 'login' %}" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_table }}
     <br/>
     <button class="button"">Login</button> 
 </form>
