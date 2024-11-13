@@ -48,6 +48,8 @@ class Post(models.Model):
     user = models.ForeignKey('intro_app.User', on_delete=models.CASCADE, related_name='posts')
     created_at = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.contents
 
 class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)

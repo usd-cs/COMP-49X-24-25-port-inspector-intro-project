@@ -1,0 +1,9 @@
+<h1>Login Page</h1>
+
+
+<form class="form-with-validation" action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <br/>
+    <button class="button"">Login</button> 
+</form>

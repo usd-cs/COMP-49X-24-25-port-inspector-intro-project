@@ -1,0 +1,25 @@
+.form-style {
+    vertical-align: bottom;
+}
+
+.post {
+    border: #000000;
+    border-radius: 5px;
+    background-color: #cacdd6;
+    font-size: 30px;
+    
+    max-width: fit-content;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.post .timestamp {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.post .author-tag {
+    font-size: 15px;
+    color: #707277
+}
