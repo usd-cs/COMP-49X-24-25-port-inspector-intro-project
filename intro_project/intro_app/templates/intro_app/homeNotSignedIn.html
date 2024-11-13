@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Not Signed In</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .home-icon {
+            font-size: 24px;
+            text-decoration: none;
+            color: #333;
+        }
+        .sign-in {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Post styles */
+        .post {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .username {
+            font-weight: bold;
+        }
+        .post-content {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .post-date {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Comment styles */
+        .comment {
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+        .comment .icon {
+            font-size: 16px;
+            margin-right: 6px;
+            color: #333;
+        }
+        .comment .username {
+            font-weight: bold;
+            color: #333;
+        }
+        .comment-date {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <a href="#" class="home-icon">🏠</a>
+            <a href="#" class="sign-in">Sign in</a>
+        </div>
+
+        <!-- Loop through each post -->
+        {% for post in posts %}
+        <div class="post">
+            <div class="user-info">
+                <span class="icon">⭐</span>
+                <!-- Display the post author's name -->
+                <span class="username">{{ post.user.name }}</span>
+            </div>
+            <div class="post-content">
+                {{ post.contents }}
+            </div>
+            <div class="post-date">
+                <!-- Display the creation date of the post -->
+                <small>Posted on {{ post.created_at|date:"F j, Y, g:i a" }}</small>
+            </div>
+
+            <!-- Loop through the comments associated with the post -->
+            {% for comment in post.comments.all %}
+            <div class="comment">
+                <span class="icon">💬</span>
+                <!-- Display the commenter's name and content -->
+                <span class="username">{{ comment.user.name }}</span>: {{ comment.contents }}
+                <div class="comment-date">
+                    <!-- Display the creation date of the comment -->
+                    <small>{{ comment.created_at|date:"F j, Y, g:i a" }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
