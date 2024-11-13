@@ -35,6 +35,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    def __str__(self):
+        return str(self.email) if self.email else "TRASH USER"   
+
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
         self.save()
