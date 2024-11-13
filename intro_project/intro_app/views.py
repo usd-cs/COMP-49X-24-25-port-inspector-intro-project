@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from . import forms
 
 from .models import Post
@@ -16,7 +16,7 @@ def members(request):
 def view_posts(request):
     # get posts from database, and send them to render method
     posts = Post.objects.all().order_by("-created_at")
-    return render(request, 'home.html', {'posts': posts})
+    return render(request, 'intro_app/homeNotSignedIn.html', {'posts': posts})
 
 # This tag might be useful to limit creating a post for only users who are logged in
 @login_required(login_url="/login/")
@@ -54,3 +54,8 @@ def login_view(request):
         form = AuthenticationForm()
 
     return render(request, 'login.html', { 'form' : form })
+
+#log the user out and send them back to the homepage
+def logout_view(request):
+    logout(request)
+    return redirect("/")
