@@ -30,6 +30,10 @@ jobs:
       run: |
         python manage.py migrate  # Applies migrations to the database
 
+        - name: Run linter
+    - run: |
+        flake8 . --max-line-length=79  # Customize max line length as needed
+        
     - name: Run tests
       run: |
         python manage.py test  # Runs Django tests
