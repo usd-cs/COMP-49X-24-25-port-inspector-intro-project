@@ -19,10 +19,10 @@ Database: Django’s default SQLite (or update this if another database is used)
 Setup and Installation
 
 Clone the Repository:
-git clone https://github.com/yourusername/your-repo-name.git
+git clone https://github.com/usd-cs/COMP-49X-24-25-port-inspector-intro-project.git
 
 Navigate to the Project Directory:
-cd your-repo-name/intro_project
+cd COMP-49X-24-25-port-inspector-intro-project/intro_project
 
 Install Dependencies: Ensure you have Django installed or install it via pip:
 pip install django
